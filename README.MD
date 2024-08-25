@@ -60,8 +60,12 @@ steps:
 iptables_update:
 http:
 description: "Update iptables for HTTP"
+
 command: "sudo iptables -t nat -A OUTPUT -p tcp --dport 80 -d 127.0.0.2 -j REDIRECT --to-ports 3000"
+
 https:
+
 description: "Update iptables for HTTPS"
+
 command: "sudo iptables -t nat -A OUTPUT -p tcp --dport 443 -d 127.0.0.2 -j REDIRECT --to-ports 8888"
 
