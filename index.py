@@ -21,6 +21,9 @@ def request(flow: http.HTTPFlow) -> None:
 def response(flow: http.HTTPFlow) -> None:
     logging.debug(f"Response - Host: {flow.request.host}, Path: {flow.request.path}, Status Code: {flow.response.status_code}")
 
+    # Add a custom header to the response
+    flow.response.headers["X-Custom-Header"] = "Intercepted by mitmproxy"
+
     if flow.request.host == FALLBACK_HOST and flow.response.status_code != 200:
         logging.info(f"Fallback to {TARGET_HOST} for request path: {flow.request.path}")
         flow.request.host = TARGET_HOST
